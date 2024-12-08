@@ -1,9 +1,14 @@
 import streamlit as st
-import pandas as pd
-import joblib
-from module_1 import transform_data, classify_new_applicant
+from module_1 import classify_new_applicant
+from pathlib import Path
 
-model_path = 'saved_model/rf_model.joblib'
+# Dynamically resolve paths relative to the project root
+BASE_DIR = Path(__file__).resolve().parent.parent  # Parent of 'src'
+MODEL_PATH = BASE_DIR / 'saved_model' / 'rf_model.joblib'
+TRAIN_COLUMNS_PATH = BASE_DIR / 'saved_model' / 'trained_columns.joblib'
+
+model_path = str(MODEL_PATH)
+train_columns_path = str(TRAIN_COLUMNS_PATH)
 
 st.title("Loan Appplicant Classifier")
 st.write("Provide the details below to determine if the applicant qualifies for a loan.")
@@ -53,7 +58,7 @@ if submitted:
     }
 
 try:
-    result = classify_new_applicant(applicant_data, model_path, transform_data)
+    result = classify_new_applicant(applicant_data, model_path, train_columns_path)
     st.success(f"Loan Application Status: {result}")
 except Exception as e:
         st.error(f"An error occurred: {e}")

@@ -119,7 +119,7 @@ def train_and_save_model(df: pd.DataFrame, model_path: str, train_columns_path: 
 
     return accuracy
 
-def classify_new_applicant(applicant_data: dict, model_path: str, train_columns_path: str, transform_data) -> str:
+def classify_new_applicant(applicant_data: dict, model_path: str, train_columns_path: str) -> str:
     """
     Classify a new loan applicant using the trained model
 
@@ -140,11 +140,11 @@ def classify_new_applicant(applicant_data: dict, model_path: str, train_columns_
 
     # Align the transformed data with the trained model's expected columns
     for col in trained_columns:
-        if col not in transformed_df.columns:
-            transformed_df[col] = 0  # Add missing columns with default value 0
+        if col not in applicant_df.columns:
+            applicant_df[col] = 0  # Add missing columns with default value 0
 
     # Reorder the columns to match the trained model
-    transformed_df = transformed_df[trained_columns]
+    applicant_df = applicant_df[trained_columns]
 
     prediction = rf_model.predict(applicant_df)[0]
     if prediction == 1:
