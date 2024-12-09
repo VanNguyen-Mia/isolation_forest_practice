@@ -10,7 +10,7 @@ TRAIN_COLUMNS_PATH = BASE_DIR / 'saved_model' / 'trained_columns.joblib'
 model_path = str(MODEL_PATH)
 train_columns_path = str(TRAIN_COLUMNS_PATH)
 
-st.title("Loan Appplicant Classifier")
+st.title("Loan Applicant Classifier")
 st.write("Provide the details below to determine if the applicant qualifies for a loan.")
 
 with st.form("applicant_form"):
